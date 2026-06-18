@@ -35,7 +35,9 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
   --color-ink: var(--ink);
+  --color-ivory: var(--ivory);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -58,8 +60,8 @@
 
 :root {
   --radius: 0.5rem;
-  /* Ivory / paper background */
   --background: oklch(0.985 0.005 80);
+  --ivory: oklch(0.97 0.012 82);
   --foreground: oklch(0.18 0.01 60);
   --ink: oklch(0.14 0.01 60);
   --card: oklch(0.995 0.003 80);
@@ -74,28 +76,31 @@
   --muted-foreground: oklch(0.5 0.012 60);
   --accent: oklch(0.92 0.02 75);
   --accent-foreground: oklch(0.18 0.01 60);
-  --gold: oklch(0.72 0.08 75);
+  --gold: oklch(0.72 0.09 75);
   --gold-soft: oklch(0.86 0.04 80);
+  --gold-deep: oklch(0.58 0.10 70);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.9 0.01 70);
   --input: oklch(0.9 0.01 70);
-  --ring: oklch(0.72 0.08 75);
-  --chart-1: oklch(0.72 0.08 75);
+  --ring: oklch(0.72 0.09 75);
+  --chart-1: oklch(0.72 0.09 75);
   --chart-2: oklch(0.55 0.04 60);
   --chart-3: oklch(0.82 0.05 80);
   --chart-4: oklch(0.35 0.02 60);
   --chart-5: oklch(0.65 0.06 50);
-  --sidebar: oklch(0.16 0.01 60);
+  --sidebar: oklch(0.13 0.01 60);
   --sidebar-foreground: oklch(0.92 0.005 80);
-  --sidebar-primary: oklch(0.72 0.08 75);
+  --sidebar-primary: oklch(0.72 0.09 75);
   --sidebar-primary-foreground: oklch(0.14 0.01 60);
-  --sidebar-accent: oklch(0.22 0.01 60);
-  --sidebar-accent-foreground: oklch(0.92 0.005 80);
-  --sidebar-border: oklch(0.25 0.01 60);
-  --sidebar-ring: oklch(0.72 0.08 75);
-  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.08 80), oklch(0.65 0.09 70));
+  --sidebar-accent: oklch(0.20 0.01 60);
+  --sidebar-accent-foreground: oklch(0.95 0.005 80);
+  --sidebar-border: oklch(0.22 0.01 60);
+  --sidebar-ring: oklch(0.72 0.09 75);
+  --gradient-gold: linear-gradient(135deg, oklch(0.80 0.07 82), oklch(0.62 0.10 70));
+  --gradient-ink: linear-gradient(180deg, oklch(0.18 0.01 60), oklch(0.10 0.01 60));
   --shadow-luxe: 0 30px 80px -30px oklch(0.18 0.01 60 / 0.25);
+  --shadow-editorial: 0 40px 100px -40px oklch(0.18 0.01 60 / 0.35), 0 8px 24px -12px oklch(0.18 0.01 60 / 0.12);
 }
 
 .dark {
@@ -115,12 +120,12 @@
   --accent-foreground: oklch(0.95 0.005 80);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.08 75);
+  --ring: oklch(0.72 0.09 75);
 }
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; }
+  html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -129,24 +134,39 @@
   h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif);
     font-weight: 500;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
+  .font-display {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
 }
 
 @utility glass-panel {
-  background: color-mix(in oklab, var(--background) 70%, transparent);
-  backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+  background: color-mix(in oklab, var(--background) 78%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
 }
-
-@utility text-gold {
-  color: var(--gold);
+@utility glass-dark {
+  background: color-mix(in oklab, var(--ink) 70%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
 }
-
-@utility bg-gradient-gold {
-  background: var(--gradient-gold);
+@utility text-gold { color: var(--gold); }
+@utility text-gold-deep { color: var(--gold-deep); }
+@utility bg-gradient-gold { background: var(--gradient-gold); }
+@utility bg-gradient-ink { background: var(--gradient-ink); }
+@utility shadow-luxe { box-shadow: var(--shadow-luxe); }
+@utility shadow-editorial { box-shadow: var(--shadow-editorial); }
+@utility eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 500;
 }
-
-@utility shadow-luxe {
-  box-shadow: var(--shadow-luxe);
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
 }

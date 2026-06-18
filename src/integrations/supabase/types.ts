@@ -80,6 +80,48 @@ export type Database = {
           },
         ]
       }
+      bills: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          due_date: string
+          id: string
+          notes: string | null
+          paid_at: string | null
+          status: string
+          supplier: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          category?: string
+          created_at?: string
+          due_date: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          status?: string
+          supplier?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          due_date?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          status?: string
+          supplier?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blocked_slots: {
         Row: {
           block_date: string
