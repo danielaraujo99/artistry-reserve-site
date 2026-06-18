@@ -16,6 +16,7 @@ export function BookingDialog({
         <DialogHeader className="shrink-0 border-b border-border/70 px-6 pb-4 pt-6 text-left sm:px-8">
           <div className="eyebrow">Agendamento online</div>
           <DialogTitle className="mt-1 font-serif text-3xl font-semibold">Reserve seu horário</DialogTitle>
+          <DialogDescription className="sr-only">Selecione profissional, data e horário para concluir o agendamento.</DialogDescription>
         </DialogHeader>
         <div className="overflow-y-auto px-6 py-6 sm:px-8">
           {/* Remount on serviceId change so the flow restarts cleanly */}
