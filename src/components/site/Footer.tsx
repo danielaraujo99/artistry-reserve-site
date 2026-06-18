@@ -50,7 +50,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                <span>Cachoeiro de Itapemirim — ES</span>
+                <span>Cachoeiro de Itapemirim, ES</span>
               </li>
             </ul>
           </div>

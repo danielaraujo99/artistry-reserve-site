@@ -26,7 +26,7 @@ const STATS = [
 ];
 
 const VALUES = [
-  { icon: Heart, title: "Acolhimento", text: "Cada cliente é única, e seu tempo no estúdio é desenhado para isso — sem pressa, com escuta real." },
+  { icon: Heart, title: "Acolhimento", text: "Cada cliente é única, e seu tempo no estúdio é desenhado para isso, sem pressa, com escuta real." },
   { icon: Award, title: "Formação internacional", text: "Aperfeiçoamento contínuo com Pivot Point, L'Oréal Professionnel e SOFT Hair." },
   { icon: Sparkles, title: "Resultado editorial", text: "Loiros e cores autorais com técnica de alta performance e acabamento de revista." },
 ];

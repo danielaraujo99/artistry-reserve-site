@@ -136,7 +136,7 @@ function Home() {
                 Excelência em<br />cada detalhe.
               </h2>
               <p className="mt-6 text-foreground/70 leading-relaxed">
-                Loiros e coloração de alta performance, cortes editorialmente desenhados e tratamentos restauradores — pensados para você.
+                Loiros e coloração de alta performance, cortes editorialmente desenhados e tratamentos restauradores, pensados para você.
               </p>
               <Button asChild className="mt-8 h-12 bg-ink text-background hover:bg-ink/90 tracking-[0.22em] text-[11px] font-semibold px-6 rounded-md">
                 <Link to="/servicos">VER CATÁLOGO COMPLETO <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -153,8 +153,7 @@ function Home() {
                     transition={{ duration: 0.45, delay: i * 0.05 }}
                   >
                     <Link
-                      to="/agendar"
-                      search={{ service: s.id }}
+                      to="/servicos"
                       className="group relative flex h-full flex-col justify-between rounded-xl border bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-gold-deep hover:shadow-editorial sm:p-7"
                     >
                       <div>
@@ -275,7 +274,7 @@ function Home() {
                   {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                 </div>
                 <p className="mt-5 font-display text-lg leading-snug font-medium text-foreground/85">"{t.text}"</p>
-                <div className="mt-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground font-semibold">— {t.name}</div>
+                <div className="mt-6 text-[11px] uppercase tracking-[0.22em] text-muted-foreground font-semibold">{t.name}</div>
               </div>
             ))}
           </div>

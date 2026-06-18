@@ -44,7 +44,7 @@ function ServicesPage() {
               Escolha sua<br /><span className="italic text-gold-deep">experiência</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg text-foreground/70">
-              Selecione o serviço desejado e agende no melhor horário para você — direto por aqui, em poucos cliques.
+              Selecione o serviço desejado e agende no melhor horário para você, direto por aqui, em poucos cliques.
             </p>
           </div>
         </div>

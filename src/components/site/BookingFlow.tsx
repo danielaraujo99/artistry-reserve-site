@@ -314,7 +314,7 @@ export function BookingFlow({
               <Row label="Horário" value={time} dark />
               <div className="mt-4 flex items-baseline justify-between border-t border-border/70 pt-4">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Valor</span>
-                <span className="font-serif text-3xl text-gold-deep">{service ? `R$ ${Number(service.price).toFixed(0)}` : "—"}</span>
+                <span className="font-serif text-3xl text-gold-deep">{service ? `R$ ${Number(service.price).toFixed(0)}` : "A definir"}</span>
               </div>
             </div>
 
@@ -367,7 +367,7 @@ export function BookingFlow({
             <div className="flex items-baseline justify-between">
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-background/55">Valor</span>
               <span className="font-serif text-3xl text-gold-soft">
-                {service ? `R$ ${Number(service.price).toFixed(0)}` : "—"}
+                {service ? `R$ ${Number(service.price).toFixed(0)}` : "A definir"}
               </span>
             </div>
           </div>

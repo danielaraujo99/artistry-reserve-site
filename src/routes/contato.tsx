@@ -60,7 +60,7 @@ function ContatoPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             {TEAM.map((m) => (
-              <div key={m.name} className="overflow-hidden rounded-2xl border bg-card shadow-luxe">
+              <div key={m.name} className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
                 <div className="flex items-center gap-5 border-b border-border/60 p-6">
                   <img src={m.img} alt={m.name} className="h-20 w-20 shrink-0 rounded-2xl object-cover" />
                   <div className="min-w-0">
@@ -105,7 +105,7 @@ function ContatoPage() {
       <section className="pb-24">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 md:px-8 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-5">
-            <div className="rounded-2xl border bg-card p-6 shadow-luxe">
+            <div className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm">
               <div className="flex items-center gap-3 text-gold-deep">
                 <MapPin className="h-5 w-5" />
                 <div className="eyebrow">Endereço</div>
@@ -113,7 +113,7 @@ function ContatoPage() {
               <p className="mt-4 font-serif text-xl leading-snug">Cachoeiro de Itapemirim<br />Espírito Santo</p>
             </div>
 
-            <div className="rounded-2xl border bg-card p-6 shadow-luxe">
+            <div className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm">
               <div className="flex items-center gap-3 text-gold-deep">
                 <Clock className="h-5 w-5" />
                 <div className="eyebrow">Horário de atendimento</div>
@@ -129,7 +129,7 @@ function ContatoPage() {
               href="https://instagram.com/elainehahn_"
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border bg-card p-6 shadow-luxe transition-colors hover:border-gold/60"
+              className="group flex items-center gap-4 rounded-2xl border border-border/70 bg-card p-6 shadow-sm transition-colors hover:border-gold/60"
             >
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground">
                 <Instagram className="h-5 w-5" />
@@ -143,7 +143,7 @@ function ContatoPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="h-[360px] overflow-hidden rounded-2xl border shadow-editorial sm:h-[480px] lg:h-full">
+            <div className="h-[360px] overflow-hidden rounded-2xl border border-border/70 shadow-sm sm:h-[480px] lg:h-full">
               <iframe
                 title="Mapa Cachoeiro de Itapemirim"
                 src="https://www.google.com/maps?q=Cachoeiro+de+Itapemirim+ES&output=embed"

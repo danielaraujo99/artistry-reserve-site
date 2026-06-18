@@ -68,7 +68,7 @@ function AdminLayout() {
   const pageTitle = PAGE_TITLES[pathname] ?? "Painel";
 
   return (
-    <SidebarProvider style={{ "--sidebar-width": "16rem" } as React.CSSProperties}>
+    <SidebarProvider className="admin-theme" style={{ "--sidebar-width": "16rem" } as React.CSSProperties}>
       <AdminSidebar email={user.email ?? undefined} onSignOut={signOut} />
       <SidebarInset className="bg-muted/30">
         <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b bg-background/85 backdrop-blur px-4 md:px-6">
