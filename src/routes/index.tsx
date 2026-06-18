@@ -135,7 +135,6 @@ function Home() {
               <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.025em] lg:text-5xl">
                 Excelência em<br />cada detalhe.
               </h2>
-              <div className="hairline mt-7 w-20" />
               <p className="mt-6 text-foreground/70 leading-relaxed">
                 Loiros e coloração de alta performance, cortes editorialmente desenhados e tratamentos restauradores — pensados para você.
               </p>
