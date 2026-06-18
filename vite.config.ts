@@ -17,11 +17,12 @@ function buildSourceZip() {
     "node_modules", ".git", "dist", ".output", ".nitro", ".vinxi", ".cache",
     ".turbo", "build", ".lovable", ".vercel", ".wrangler",
   ]);
-  const IGNORE_FILES = new Set(["lidia-source.zip", ".DS_Store"]);
+  const IGNORE_FILES = new Set(["lidia-source.zip", ".DS_Store", ".env"]);
 
   const zip = new AdmZip();
   const walk = (dir: string) => {
     for (const name of readdirSync(dir)) {
+      if (name.startsWith(".env.")) continue;
       if (IGNORE.has(name) || IGNORE_FILES.has(name)) continue;
       const full = join(dir, name);
       const st = statSync(full);
