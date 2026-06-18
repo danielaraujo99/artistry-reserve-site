@@ -1,155 +1,66 @@
+# Redesign Premium — Studio de Beleza Elaine Hahn
 
-# Redesenho Premium Completo — Estúdio Elaine Hahn
+Reconstrução completa de **todo o site público** com direção de arte editorial de alto padrão (branco / preto suave / bege / dourado leve, serif + sans moderna). O **painel admin não será tocado**.
 
-Refazer o site público em nível agência internacional, reformular painel admin, criar tela de login premium (somente login, sem cadastro), corrigir o erro de runtime e provisionar a conta `admin@painel.com`.
+## Descoberta crítica
+As tabelas `gallery_items`, `professionals` e `services` estão **vazias**. Hoje a galeria, a seção "Mãos que assinam" e o fluxo de agendamento renderizam vazio. Por isso o redesign inclui **popular os dados reais** com as imagens do site `studio-elaine.com.br`.
 
-## 1. Diagnóstico
+## 1. Dados e imagens reais (base de tudo)
+- Baixar para `public/team/`: `Elaine.png` e `Veronica.png` (seção "O Estúdio" do site de referência).
+- As 9 imagens de transformações (`destaque-001..009`) já existem em `public/gallery/`.
+- Migration de seed (idempotente) populando:
+  - `professionals`: **Elaine Hahn** (10+ anos, Cortes/Coloração/Mechas, Pivot Point DCF1/DCF2, Chaves da Cor L'Oréal) e **Verônica Pereira** (18 anos, Design de Mechas, Colorimetria, Terapia Capilar, Escovaria Avançada) — com `photo_url` apontando para `/team/*.png`.
+  - `gallery_items`: as 9 transformações.
+  - `services`: catálogo real do site (Escova, Corte, Coloração, Mechas, Tratamentos Capilares, Babyliss, Alisamento) por categoria, com duração/preço base.
+- Inclui GRANTs/políticas de leitura `anon` somente se ainda não existirem (sem mexer no admin).
 
-**Site público (prints enviados):** hero com foto inadequada (bancada), seções soltas todas no mesmo card escuro, serviços viraram pílulas sem preço/descrição, galeria sem ritmo, agendamento em modal apertado, footer pobre.
+## 2. Design system (refino em `src/styles.css`)
+- Manter par tipográfico atual (Cormorant Garamond display + Inter), refinar escala/tracking.
+- Paleta: branco, preto suave (`ink`), bege/ivory, dourado leve — já presente; ajustar contraste e suavizar dourado.
+- Glassmorphism muito sutil, sombras leves (`shadow-luxe`/`editorial`), grid de 12 colunas, ritmo de espaçamento generoso e consistente entre seções.
 
-**Erro runtime `/admin/appointments`:** `Invariant: Expected to find a match below the root match in SPA mode` — causado por estrutura SSR-off + Outlet sem fallback. Vou auditar `_authenticated/route.tsx`, `admin.tsx` e cada rota filha.
+## 3. Páginas (redesenho seção por seção)
 
-**Logo:** PNG com fundo branco — vai mal sobre header escuro.
+### Home (`src/routes/index.tsx`)
+Fluxo psicológico de conversão: impacto → autoridade → desejo → confiança → conexão → ação.
+- **Hero** dark editorial: imagem real, headline curta forte, subtítulo refinado, CTAs `AGENDAR HORÁRIO` + `VER TRANSFORMAÇÕES`, parallax/blur sutil.
+- **Prova de autoridade**: números discretos + formações (faixa minimalista).
+- **Serviços**: cards limpos com hierarquia, destaque para loiros/coloração/tratamentos.
+- **Transformações** (maior peso visual): grid editorial estilo portfólio de luxo, alinhamento perfeito, hover sutil.
+- **Profissionais**: layout alternado imagem/texto, fotos reais (Elaine/Verônica), texto curto.
+- **Sobre** (resumo) + **CTA final** dark.
 
-## 2. Logo
+### Galeria (`src/routes/galeria.tsx`)
+- Grid editorial alinhado (proporção uniforme), lightbox refinado com navegação por teclado, lazy-load.
 
-- Reprocessar `/public/logo.png` removendo fundo branco (versão transparente).
-- Criar variante clara para usar sobre fundo escuro (header admin, footer).
+### Serviços (`src/routes/servicos.tsx`)
+- Hero editorial + catálogo agrupado por categoria, espaçamento e alinhamento precisos, CTA por serviço.
 
-## 3. Conta admin
+### Sobre (`src/routes/sobre.tsx`)
+- Narrativa institucional curta, valores, profissionais em zigzag editorial com fotos reais.
 
-- Criar `admin@painel.com / admin1` via Supabase Admin API.
-- Inserir role `admin` em `user_roles` para esse user_id.
-- Confirmar e-mail automaticamente (sem fluxo de verificação).
-- Feito por server function única executada uma vez (idempotente).
+### Contato (`src/routes/contato.tsx`)
+- Cards de canais (WhatsApp em destaque), mapa, bloco de CTA. Refino de espaçamento/hierarquia.
 
-## 4. Tela de login (`/auth`)
+### Agendamento (`src/routes/agendar.tsx` + `src/components/site/BookingFlow.tsx`)
+Tratado como **produto digital app-like** (mobile-first):
+- Fluxo em 5 passos: Serviço → Profissional → Data → Horário → Revisão.
+- Progress bar visível, transições suaves, resumo fixo lateral, feedback por etapa.
+- Confirmação: tela de sucesso elegante + **abertura automática do WhatsApp** com mensagem pronta (Dia / Hora / Serviço / Profissional). Remover textos supérfluos ("em baixo de sua reserva").
 
-- Layout split-screen: à esquerda imagem editorial (foto real do studio com gradiente sutil) + frase de marca; à direita card com logo, título "Acesso restrito", campos e-mail/senha, botão primário "Entrar", link discreto "Esqueci minha senha".
-- **Remover totalmente** abas/tabs e formulário de cadastro.
-- Estados: loading no botão, mensagem de erro inline, toast de sucesso.
-- Responsivo: split colapsa em mobile, mantendo logo + card centralizado.
-- Tipografia e tokens iguais ao resto do projeto (Cormorant + Inter, paleta ivory/gold/charcoal).
+### Componentes globais
+- **Header** (`Header.tsx`): fixo, logo original intacta, menu elegante, botão `AGENDAR` sempre visível (desktop + mobile).
+- **Footer** (`Footer.tsx`): clean, logo intacta, links essenciais, contato discreto.
+- Garantir que **não** exista botão flutuante de chat no canto inferior direito.
 
-## 5. Site público — nova arquitetura
+## 4. Performance & responsividade
+- Imagens otimizadas (`loading="lazy"`, dimensões), animações discretas via framer-motion, responsividade mobile/tablet/desktop, código limpo.
 
-Separar âncoras em rotas reais (SEO + UX):
+## Restrições (não negociáveis)
+- **Não tocar no admin** (`src/routes/_authenticated/*`, `src/components/admin/*`).
+- Não alterar a logo original. Não inventar conteúdo. Manter usuário admin `admin@painel.com`.
 
-```
-/                Home
-/servicos        Catálogo completo
-/galeria         Masonry editorial com lightbox
-/sobre           Estúdio + profissionais em profundidade
-/contato         Endereço, mapa, horários, WhatsApp
-/agendar         Página dedicada de agendamento (sem modal)
-```
-
-Cada rota com `head()` próprio (title, description, og:title, og:description). Hero substituído por composição editorial real (fotos da galeria) com layout split + stats + CTAs.
-
-**Seções da Home:**
-1. Hero split com badge de formações
-2. Faixa de marcas (Pivot Point, L'Oréal, SOFT, ICloiral)
-3. Serviços em destaque (4 cards com imagem, nome, preço)
-4. Mosaico galeria asymmetric (6 fotos → /galeria)
-5. Preview profissionais (foto + nome → /sobre)
-6. Depoimentos editoriais
-7. CTA full-bleed final
-
-**Página `/servicos`:** grid 2 col com categoria, nome, descrição real, duração, preço, botão "Agendar este serviço" (deep link).
-
-**Página `/galeria`:** masonry CSS columns + lightbox.
-
-**Página `/sobre`:** história do estúdio + zigzag Elaine/Verônica com bio completa, especialidades em chips, CTA agendar.
-
-**Página `/contato`:** grid endereço/horários/telefones + mapa embed + WhatsApp.
-
-**Página `/agendar` (sem modal):**
-- Layout 2 col desktop: esquerda sticky com resumo da reserva, direita stepper 4 passos (Serviço → Profissional → Data/Hora → Dados).
-- Mobile: stepper full-width, resumo embaixo.
-- Suporta `?service=ID&pro=ID`.
-- Salva em `appointments` + abre WhatsApp pré-preenchido + tela de confirmação.
-
-## 6. Header / Footer públicos
-
-- **Header**: logo transparente + nav real (Início, Serviços, Galeria, Sobre, Contato) + botão "AGENDAR" gold. Mobile: drawer lateral completo. Glass blur ao rolar.
-- **Footer**: 4 colunas (marca, navegação, contato, horários) + barra inferior com social/copyright.
-
-## 7. Painel admin — reformulação completa
-
-**Correção do invariant:** auditar `_authenticated/route.tsx` (gate ssr:false), garantir `<Outlet />` em `admin.tsx`, e garantir que cada rota filha tem `component` válido. Reproduzir e fixar.
-
-**Layout (organizado, sem nada centralizado isolado):**
-- Sidebar fixa esquerda (240px) usando shadcn `Sidebar` com `collapsible="icon"` — logo no topo (versão clara sobre fundo escuro), nav com ícones e labels, perfil + logout no rodapé.
-- Topbar: SidebarTrigger + breadcrumb + busca rápida + avatar.
-- Conteúdo: container full-width com padding consistente, grid 12 colunas, cards padronizados.
-
-**Páginas:**
-
-1. **Dashboard (`/admin`)**: KPIs (agendamentos hoje, faturamento mês, novos clientes, ticket médio) + gráfico de barras receita 6 meses + gráfico linha agendamentos 30 dias + lista próximos agendamentos + top serviços. Tudo com Recharts, layout grid responsivo.
-
-2. **Agendamentos (`/admin/appointments`)**: tabela com filtros (status, profissional, data range, busca cliente), ações inline (confirmar/cancelar/concluir), drawer lateral com detalhes, botão "Novo agendamento manual".
-
-3. **Clientes (`/admin/clients`)**: tabela com busca, histórico ao clicar, total gasto, última visita, contato direto WhatsApp.
-
-4. **Serviços (`/admin/services`)**: cards editáveis com nome, categoria, duração, preço, ativo/inativo. Form de criar/editar em drawer.
-
-5. **Galeria (`/admin/gallery`)**: grid das fotos atuais (vindas de `/public/gallery/`), upload de novas para bucket Supabase Storage, reordenar, ativar/desativar, editar título.
-
-6. **Financeiro (`/admin/finance`)**:
-   - Aba Visão geral: KPIs (receita, despesas, lucro, margem), gráfico área receita vs despesa 12 meses, gráfico pizza categorias de despesa.
-   - Aba Receitas: tabela de transações income (auto-criadas de agendamentos concluídos + manuais).
-   - Aba Despesas: cadastro de despesas categorizadas (fornecedores, aluguel, produtos, salário, marketing, etc).
-   - Aba Contas a pagar: lista de contas com vencimento, status (pendente/pago/atrasado), marcar como pago, alerta visual para próximas/atrasadas.
-
-**Storage:** criar bucket `gallery` (public) para upload das fotos pelo admin.
-
-**Migração:** adicionar tabela `bills` (contas a pagar) com vencimento, valor, categoria, fornecedor, status, recorrência opcional. Tudo com RLS exigindo role admin.
-
-## 8. Responsividade
-
-Padrão `grid-cols-[minmax(0,1fr)_auto]` em headers de cards, `min-w-0` em textos, `shrink-0` em ícones, breakpoints sm/md/lg/xl. Testes em 375/768/1280.
-
-## 9. Dependências
-
-- `framer-motion` para animações de entrada (fade-up, parallax leve).
-- Manter Recharts (já instalado).
-
-## 10. Arquivos
-
-**Criar:**
-- `src/routes/servicos.tsx`, `galeria.tsx`, `sobre.tsx`, `contato.tsx`, `agendar.tsx`
-- `src/components/site/Hero.tsx`, `ServiceCard.tsx`, `GalleryMasonry.tsx`, `ProfessionalBlock.tsx`, `Testimonials.tsx`, `CtaBand.tsx`, `BookingFlow.tsx`, `Lightbox.tsx`
-- `src/components/admin/AdminSidebar.tsx`, `AdminTopbar.tsx`, `KpiCard.tsx`, `RevenueChart.tsx`, `BookingsChart.tsx`, `BillsTable.tsx`
-- `src/routes/_authenticated/admin.bills.tsx` (contas a pagar)
-- `src/lib/seed-admin.functions.ts` (criar conta admin idempotente)
-- Migração: tabela `bills` + bucket `gallery`
-
-**Editar:**
-- `src/routes/index.tsx` — home nova
-- `src/routes/auth.tsx` — login premium, sem cadastro
-- `src/components/site/Header.tsx`, `Footer.tsx`, `Logo.tsx`
-- `src/routes/_authenticated/admin.tsx` — novo layout sidebar
-- `src/routes/_authenticated/admin.index.tsx` — dashboard novo
-- `src/routes/_authenticated/admin.appointments.tsx`, `clients.tsx`, `services.tsx`, `gallery.tsx`, `finance.tsx` — reformular
-- `src/styles.css` — tokens adicionais
-- `src/components/site/BookingDialog.tsx` — remover ou converter para redirect para `/agendar`
-- `public/logo.png` — versão transparente
-
-## 11. Ordem de execução
-
-1. Migração (bills + bucket + qualquer ajuste) — aguarda aprovação
-2. Processar logo transparente
-3. Criar conta admin via server function
-4. Refazer auth (login premium)
-5. Refazer site público (rotas + componentes)
-6. Refazer painel admin (sidebar + páginas + financeiro completo)
-7. Corrigir invariant e validar `/admin/*`
-8. Checar build + preview health + responsividade
-
-## 12. Fora de escopo
-
-- Pagamento online
-- Notificações por email automáticas
-- App mobile
-
-Pode aprovar para implementar?
+## Notas técnicas
+- Seed via migration SQL idempotente (`on conflict do nothing`).
+- `Elaine.png`/`Veronica.png` baixados para `public/team/` (sem alterar `client.ts`/arquivos auto-gerados).
+- Sem mudanças em lógica de backend além do seed de conteúdo.
