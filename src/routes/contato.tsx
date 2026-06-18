@@ -23,7 +23,7 @@ const TEAM = [
     phone: "(28) 99975-3008",
     wa: "5528999753008",
     email: "elaine-hahn@hotmail.com",
-    img: "/team/elaine.jpg",
+    img: "/main/Elaine.png",
   },
   {
     name: "Verônica Pereira",
@@ -31,7 +31,7 @@ const TEAM = [
     phone: "(28) 99930-6087",
     wa: "5528999306087",
     email: "Veronicapereiradeoliveira2@gmail.com",
-    img: "/team/veronica.jpg",
+    img: "/main/Veronica.png",
   },
 ];
 

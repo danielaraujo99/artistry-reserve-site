@@ -58,7 +58,7 @@ function Dashboard() {
 
       <div className="grid gap-4 md:grid-cols-4">
         <StatCard label="Agendamentos no mês" value={apptThisMonth.length.toString()} icon={Calendar} />
-        <StatCard label="Receita total" value={`R$ ${income.toFixed(2)}`} icon={DollarSign} accent />
+        <StatCard label="Receita total" value={`R$ ${income.toFixed(2)}`} icon={DollarSign} />
         <StatCard label="Despesas" value={`R$ ${expense.toFixed(2)}`} icon={TrendingUp} />
         <StatCard label="Clientes únicos" value={uniqueClients.toString()} icon={Users} />
       </div>
@@ -127,16 +127,16 @@ function Dashboard() {
   );
 }
 
-function StatCard({ label, value, icon: Icon, accent }: { label: string; value: string; icon: any; accent?: boolean }) {
+function StatCard({ label, value, icon: Icon }: { label: string; value: string; icon: any; accent?: boolean }) {
   return (
-    <Card className={accent ? "border-gold/40" : ""}>
+    <Card>
       <CardContent className="p-5">
         <div className="flex items-start justify-between">
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground">{label}</div>
-            <div className="mt-2 font-serif text-3xl">{value}</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight">{value}</div>
           </div>
-          <div className={cn("flex h-10 w-10 items-center justify-center rounded-md", accent ? "bg-gradient-gold text-ink" : "bg-muted")}>
+          <div className={cn("flex h-10 w-10 items-center justify-center rounded-md bg-muted text-muted-foreground")}>
             <Icon className="h-5 w-5" />
           </div>
         </div>

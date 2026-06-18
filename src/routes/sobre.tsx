@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Heart, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
-import { professionalsQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -31,8 +29,26 @@ const VALUES = [
   { icon: Sparkles, title: "Resultado editorial", text: "Loiros e cores autorais com técnica de alta performance e acabamento de revista." },
 ];
 
+const TEAM = [
+  {
+    slug: "elaine",
+    name: "Elaine Hahn",
+    role: "Hair Stylist · Loiros & Coloração",
+    bio: "Fundadora do estúdio, com mais de uma década de carreira e formação internacional pela Pivot Point e L'Oréal Professionnel. Especialista em loiros sob medida e coloração autoral.",
+    specialties: ["Loiros", "Coloração", "Cortes femininos", "Finalização"],
+    img: "/main/Elaine.png",
+  },
+  {
+    slug: "veronica",
+    name: "Verônica Pereira",
+    role: "Especialista em Mechas & Colorimetria",
+    bio: "Hair colorist apaixonada por nuances e luminosidade. Especialista em mechas, balayage e correções de cor com técnica refinada e olhar editorial.",
+    specialties: ["Mechas", "Balayage", "Colorimetria", "Tratamentos"],
+    img: "/main/Veronica.png",
+  },
+];
+
 function AboutPage() {
-  const pros = useQuery(professionalsQuery);
 
   return (
     <div className="min-h-screen bg-background">
@@ -106,9 +122,9 @@ function AboutPage() {
           </div>
 
           <div className="space-y-24 lg:space-y-32">
-            {pros.data?.map((p, i) => (
+            {TEAM.map((p, i) => (
               <motion.div
-                key={p.id}
+                key={p.slug}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
@@ -117,27 +133,25 @@ function AboutPage() {
               >
                 <div className="md:col-span-5">
                   <img
-                    src={p.photo_url || ""}
+                    src={p.img}
                     alt={p.name}
                     loading="lazy"
                     className="aspect-[4/5] w-full rounded-2xl object-cover shadow-editorial"
                   />
                 </div>
                 <div className="md:col-span-7">
-                  <div className="eyebrow">{p.role_title}</div>
+                  <div className="eyebrow">{p.role}</div>
                   <h3 className="mt-3 font-serif text-5xl leading-[1.02] lg:text-6xl">{p.name}</h3>
                   <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/70">{p.bio}</p>
-                  {p.specialties && p.specialties.length > 0 && (
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {p.specialties.map((sp) => (
-                        <span key={sp} className="rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-foreground/70">
-                          {sp}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {p.specialties.map((sp) => (
+                      <span key={sp} className="rounded-full border border-foreground/15 px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-foreground/70">
+                        {sp}
+                      </span>
+                    ))}
+                  </div>
                   <Button asChild className="mt-8 h-12 rounded-md bg-ink px-6 text-[11px] font-semibold tracking-[0.2em] text-background hover:bg-ink/90">
-                    <Link to="/agendar" search={{ pro: p.id }}>
+                    <Link to="/agendar">
                       AGENDAR COM {p.name.split(" ")[0].toUpperCase()} <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
