@@ -21,6 +21,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as ApiPublicSeedAdminRouteImport } from './routes/api/public/seed-admin'
+import { Route as ApiPublicBaixarRouteImport } from './routes/api/public/baixar'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
 import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
 import { Route as AuthenticatedAdminFinanceRouteImport } from './routes/_authenticated/admin.finance'
@@ -87,6 +88,11 @@ const ApiPublicSeedAdminRoute = ApiPublicSeedAdminRouteImport.update({
   path: '/api/public/seed-admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBaixarRoute = ApiPublicBaixarRouteImport.update({
+  id: '/api/public/baixar',
+  path: '/api/public/baixar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminServicesRoute =
   AuthenticatedAdminServicesRouteImport.update({
     id: '/services',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/baixar': typeof ApiPublicBaixarRoute
   '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/baixar': typeof ApiPublicBaixarRoute
   '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/baixar': typeof ApiPublicBaixarRoute
   '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/gallery'
     | '/admin/services'
+    | '/api/public/baixar'
     | '/api/public/seed-admin'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -217,6 +227,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/gallery'
     | '/admin/services'
+    | '/api/public/baixar'
     | '/api/public/seed-admin'
     | '/admin'
   id:
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/finance'
     | '/_authenticated/admin/gallery'
     | '/_authenticated/admin/services'
+    | '/api/public/baixar'
     | '/api/public/seed-admin'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -251,6 +263,7 @@ export interface RootRouteChildren {
   GaleriaRoute: typeof GaleriaRoute
   ServicosRoute: typeof ServicosRoute
   SobreRoute: typeof SobreRoute
+  ApiPublicBaixarRoute: typeof ApiPublicBaixarRoute
   ApiPublicSeedAdminRoute: typeof ApiPublicSeedAdminRoute
 }
 
@@ -338,6 +351,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/seed-admin'
       fullPath: '/api/public/seed-admin'
       preLoaderRoute: typeof ApiPublicSeedAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/baixar': {
+      id: '/api/public/baixar'
+      path: '/api/public/baixar'
+      fullPath: '/api/public/baixar'
+      preLoaderRoute: typeof ApiPublicBaixarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/services': {
@@ -429,6 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriaRoute: GaleriaRoute,
   ServicosRoute: ServicosRoute,
   SobreRoute: SobreRoute,
+  ApiPublicBaixarRoute: ApiPublicBaixarRoute,
   ApiPublicSeedAdminRoute: ApiPublicSeedAdminRoute,
 }
 export const routeTree = rootRouteImport
