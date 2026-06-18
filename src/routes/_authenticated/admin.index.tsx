@@ -144,5 +144,3 @@ function StatCard({ label, value, icon: Icon, accent }: { label: string; value: 
     </Card>
   );
 }
-
-import { cn } from "@/lib/utils";
