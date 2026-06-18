@@ -9,10 +9,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-5">
-            <div className="flex items-center gap-3">
-              <Logo variant="light" className="h-12 w-auto" />
-              <Wordmark variant="light" />
-            </div>
+            <Logo variant="light" className="h-14 w-auto" />
             <p className="max-w-xs text-sm leading-relaxed text-background/60">
               Estúdio de beleza premium em Cachoeiro de Itapemirim. Cuidado autêntico, técnica internacional.
             </p>
