@@ -54,7 +54,6 @@ function AuthPage() {
         <div className="relative z-10 flex h-full flex-col justify-between p-14 text-background">
           <Link to="/" className="inline-flex items-center gap-3 w-fit group">
             <Logo variant="light" className="h-12 w-auto" />
-            <Wordmark variant="light" />
           </Link>
           <div className="max-w-md">
             <div className="text-[11px] uppercase tracking-[0.3em] text-gold-soft">Painel administrativo</div>
@@ -84,7 +83,6 @@ function AuthPage() {
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-3 mb-10">
             <Logo className="h-12 w-auto" />
-            <Wordmark />
           </div>
 
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-accent/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-gold-deep">

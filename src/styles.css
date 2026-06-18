@@ -137,6 +137,22 @@
 @utility bg-admin-accent { background: var(--admin-accent); }
 @utility text-admin-accent { color: var(--admin-accent); }
 
+/* Admin panel typography: sans-serif (standard dashboard look). */
+.admin-theme,
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme h4,
+.admin-theme h5,
+.admin-theme h6,
+.admin-theme .font-serif,
+.admin-theme .font-display {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+.admin-theme h1 { font-weight: 700; letter-spacing: -0.02em; }
+
 .dark {
   --background: oklch(0.12 0.006 60);
   --foreground: oklch(0.95 0.005 80);
