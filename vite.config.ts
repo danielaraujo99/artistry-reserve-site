@@ -58,6 +58,11 @@ export default defineConfig({
   // como estático incompleto e a raiz/rotas diretas retornam 404 NOT_FOUND.
   nitro: {
     preset: "vercel",
+    vercel: {
+      functions: {
+        runtime: "nodejs22.x",
+      },
+    },
   },
   tanstackStart: {
     server: { entry: "server" },
