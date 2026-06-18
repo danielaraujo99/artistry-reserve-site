@@ -75,8 +75,7 @@ function AdminLayout() {
           <SidebarTrigger className="-ml-1" />
           <div className="hidden md:block h-5 w-px bg-border" />
           <div className="min-w-0">
-            <div className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground font-semibold">Painel · Studio Elaine Hahn</div>
-            <div className="font-display text-base font-semibold leading-none tracking-[-0.01em] truncate mt-1">{pageTitle}</div>
+            <div className="truncate font-display text-base font-semibold leading-none tracking-[-0.01em]">{pageTitle}</div>
           </div>
           <div className="ml-auto flex items-center gap-3">
             <Logo className="h-8 w-auto hidden sm:block" />

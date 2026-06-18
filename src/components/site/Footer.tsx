@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Logo } from "./Logo";
-import { whatsappContactLink } from "@/lib/whatsapp";
+
 
 export function Footer() {
   return (
@@ -35,19 +35,21 @@ export function Footer() {
             <h4 className="eyebrow text-gold-soft">Contato</h4>
             <ul className="mt-5 space-y-3 text-sm text-background/75">
               <li className="flex items-start gap-3">
-                <Phone className="mt-0.5 h-4 w-4 text-gold shrink-0" />
-                <a href={whatsappContactLink()} target="_blank" rel="noreferrer" className="hover:text-gold-soft">
-                  (28) 99975-3008
-                </a>
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                <div>
+                  <a href="https://wa.me/5528999753008" target="_blank" rel="noreferrer" className="block hover:text-gold-soft">Elaine · (28) 99975-3008</a>
+                  <a href="https://wa.me/5528999306087" target="_blank" rel="noreferrer" className="block hover:text-gold-soft">Verônica · (28) 99930-6087</a>
+                </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="mt-0.5 h-4 w-4 text-gold shrink-0" />
-                <a href="mailto:contato@estudioelainehahn.com.br" className="hover:text-gold-soft break-all">
-                  contato@estudioelainehahn.com.br
-                </a>
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                <div className="min-w-0">
+                  <a href="mailto:elaine-hahn@hotmail.com" className="block break-all hover:text-gold-soft">elaine-hahn@hotmail.com</a>
+                  <a href="mailto:Veronicapereiradeoliveira2@gmail.com" className="block break-all hover:text-gold-soft">veronicapereiradeoliveira2@gmail.com</a>
+                </div>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 text-gold shrink-0" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                 <span>Cachoeiro de Itapemirim — ES</span>
               </li>
             </ul>

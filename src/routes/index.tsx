@@ -135,7 +135,6 @@ function Home() {
               <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.025em] lg:text-5xl">
                 Excelência em<br />cada detalhe.
               </h2>
-              <div className="hairline mt-7 w-20" />
               <p className="mt-6 text-foreground/70 leading-relaxed">
                 Loiros e coloração de alta performance, cortes editorialmente desenhados e tratamentos restauradores — pensados para você.
               </p>
@@ -292,7 +291,7 @@ function Home() {
           <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
             <div>
               <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-gold-soft font-semibold">
-                <span className="h-px w-8 bg-gold-soft" /> Pronta para começar?
+                Pronta para começar?
               </div>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.025em] sm:text-5xl lg:text-6xl">
                 Sua próxima<br />experiência de beleza<br /><span className="text-gold-soft">começa aqui.</span>
@@ -303,10 +302,10 @@ function Home() {
             </div>
 
             <div className="flex flex-col gap-3 lg:items-end">
-              <Button asChild size="lg" className="h-13 w-full lg:w-auto bg-background text-ink hover:bg-background/90 tracking-[0.22em] text-[11px] font-semibold px-8 py-4 rounded-md">
+              <Button asChild size="lg" className="h-12 w-full justify-center lg:w-[260px] bg-background text-ink hover:bg-background/90 tracking-[0.22em] text-[11px] font-semibold rounded-md">
                 <Link to="/agendar">AGENDAR AGORA <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 w-full lg:w-auto border-background/30 bg-transparent text-background hover:bg-background/10 hover:text-background tracking-[0.22em] text-[11px] font-semibold px-8 py-4 rounded-md">
+              <Button asChild size="lg" variant="outline" className="h-12 w-full justify-center lg:w-[260px] border-background/30 bg-transparent text-background hover:bg-background/10 hover:text-background tracking-[0.22em] text-[11px] font-semibold rounded-md">
                 <Link to="/contato"><MapPin className="mr-2 h-4 w-4" /> COMO CHEGAR</Link>
               </Button>
             </div>

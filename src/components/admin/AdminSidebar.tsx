@@ -4,7 +4,7 @@ import {
   Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
   SidebarGroup, SidebarGroupLabel, SidebarGroupContent,
 } from "@/components/ui/sidebar";
-import { Logo, Wordmark } from "@/components/site/Logo";
+
 import { Button } from "@/components/ui/button";
 
 const main = [
@@ -31,9 +31,11 @@ export function AdminSidebar({ email, onSignOut }: { email?: string; onSignOut: 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="border-b border-sidebar-border bg-sidebar p-4">
-        <Link to="/" className="flex items-center gap-3">
-          <Logo variant="light" className="h-9 w-auto shrink-0" />
-          <Wordmark variant="light" className="group-data-[collapsible=icon]:hidden" />
+        <Link to="/admin" className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-gold text-ink font-display text-lg font-semibold">A</span>
+          <span className="font-display text-sm font-semibold uppercase tracking-[0.22em] text-sidebar-foreground group-data-[collapsible=icon]:hidden">
+            Admin Panel
+          </span>
         </Link>
       </SidebarHeader>
       <SidebarContent>
