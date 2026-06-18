@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { galleryQuery } from "@/lib/queries";
@@ -9,9 +9,9 @@ import { galleryQuery } from "@/lib/queries";
 export const Route = createFileRoute("/galeria")({
   head: () => ({
     meta: [
-      { title: "Galeria · Estúdio Elaine Hahn" },
-      { name: "description", content: "Galeria de transformações reais — loiros, coloração e finalizações assinadas pelo Estúdio Elaine Hahn." },
-      { property: "og:title", content: "Galeria · Estúdio Elaine Hahn" },
+      { title: "Galeria · Studio Elaine Hahn" },
+      { name: "description", content: "Galeria de transformações reais — loiros, coloração e finalizações assinadas pelo studio Elaine Hahn." },
+      { property: "og:title", content: "Galeria · Studio Elaine Hahn" },
       { property: "og:description", content: "Transformações reais de clientes reais." },
     ],
   }),
@@ -20,7 +20,19 @@ export const Route = createFileRoute("/galeria")({
 
 function GalleryPage() {
   const gallery = useQuery(galleryQuery);
-  const [active, setActive] = useState<string | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const items = gallery.data ?? [];
+
+  useEffect(() => {
+    if (activeIdx === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveIdx(null);
+      if (e.key === "ArrowRight") setActiveIdx((i) => (i === null ? null : (i + 1) % items.length));
+      if (e.key === "ArrowLeft") setActiveIdx((i) => (i === null ? null : (i - 1 + items.length) % items.length));
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [activeIdx, items.length]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,11 +43,11 @@ function GalleryPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="max-w-2xl">
             <div className="eyebrow">Galeria</div>
-            <h1 className="mt-4 font-serif text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
-              Transformações<br /><span className="italic text-gold-deep">assinadas</span>
+            <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.02] tracking-[-0.025em] sm:text-6xl lg:text-7xl">
+              Transformações<br /><span className="text-gold-deep">assinadas</span>
             </h1>
-            <p className="mt-7 text-foreground/70 text-lg">
-              Cada cor, cada corte, uma assinatura. Conheça o trabalho que entregamos no estúdio.
+            <p className="mt-6 text-foreground/70 text-lg max-w-xl">
+              Cada cor, cada corte, uma assinatura. Conheça o trabalho que entregamos no studio.
             </p>
           </div>
         </div>
@@ -43,38 +55,63 @@ function GalleryPage() {
 
       <section className="pb-24">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="columns-2 gap-3 md:columns-3 md:gap-4 lg:columns-4 [column-fill:_balance]">
-            {gallery.data?.map((g) => (
+          {/* Aligned uniform grid — every card 1:1, perfectly aligned */}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
+            {items.map((g, idx) => (
               <button
                 key={g.id}
-                onClick={() => setActive(g.image_url)}
-                className="group mb-3 block w-full overflow-hidden rounded-xl bg-muted md:mb-4"
+                onClick={() => setActiveIdx(idx)}
+                className="group relative aspect-square overflow-hidden rounded-lg bg-muted shadow-luxe"
               >
                 <img
                   src={g.image_url}
                   alt={g.title || "Transformação"}
                   loading="lazy"
-                  className="w-full transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {active && (
+      {/* Lightbox */}
+      {activeIdx !== null && items[activeIdx] && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4 backdrop-blur"
-          onClick={() => setActive(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/95 p-4 backdrop-blur"
+          onClick={() => setActiveIdx(null)}
         >
           <button
-            onClick={() => setActive(null)}
+            onClick={(e) => { e.stopPropagation(); setActiveIdx(null); }}
             className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/10 text-background hover:bg-background/20"
             aria-label="Fechar"
           >
             <X className="h-5 w-5" />
           </button>
-          <img src={active} alt="" className="max-h-[90vh] max-w-full rounded-xl object-contain shadow-editorial" />
+          <button
+            onClick={(e) => { e.stopPropagation(); setActiveIdx((i) => i === null ? null : (i - 1 + items.length) % items.length); }}
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background/10 text-background hover:bg-background/20"
+            aria-label="Anterior"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); setActiveIdx((i) => i === null ? null : (i + 1) % items.length); }}
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background/10 text-background hover:bg-background/20"
+            aria-label="Próxima"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+          <img
+            src={items[activeIdx].image_url}
+            alt=""
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[88vh] max-w-full rounded-xl object-contain shadow-editorial"
+          />
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[11px] uppercase tracking-[0.22em] text-background/60 font-medium">
+            {activeIdx + 1} / {items.length}
+          </div>
         </div>
       )}
 

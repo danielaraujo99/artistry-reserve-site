@@ -4,7 +4,7 @@ export function Logo({ className = "h-10 w-auto", variant = "default" }: { class
   return (
     <img
       src="/logo.png"
-      alt="Estúdio Elaine Hahn"
+      alt="Studio de Beleza Elaine Hahn"
       className={cn(className, variant === "light" && "brightness-0 invert")}
     />
   );
@@ -15,8 +15,8 @@ export function Wordmark({ className = "", variant = "default" }: { className?: 
   const gold = variant === "light" ? "text-gold-soft" : "text-gold-deep";
   return (
     <div className={cn("flex flex-col leading-none", className)}>
-      <span className={cn("font-serif text-xl tracking-tight", ink)}>Elaine Hahn</span>
-      <span className={cn("text-[9px] uppercase tracking-[0.35em] mt-0.5", gold)}>Beauty Studio</span>
+      <span className={cn("text-[10px] uppercase tracking-[0.28em] font-medium", gold)}>Studio de Beleza</span>
+      <span className={cn("font-display text-lg font-semibold tracking-tight mt-1", ink)}>Elaine Hahn</span>
     </div>
   );
 }

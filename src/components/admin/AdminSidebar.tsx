@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Calendar, Users, ImageIcon, DollarSign, Scissors, Receipt, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, Users, ImageIcon, DollarSign, Scissors, LogOut } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
   SidebarGroup, SidebarGroupLabel, SidebarGroupContent,
@@ -18,12 +18,15 @@ const catalog = [
 ];
 const finance = [
   { to: "/admin/finance", label: "Financeiro", icon: DollarSign },
-  { to: "/admin/bills", label: "Contas a pagar", icon: Receipt },
 ];
 
 export function AdminSidebar({ email, onSignOut }: { email?: string; onSignOut: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isActive = (p: string, exact?: boolean) => (exact ? pathname === p : pathname === p || pathname.startsWith(p + "/"));
+  // Finance section: both /admin/finance and /admin/bills should mark Financeiro active
+  const isActive = (p: string, exact?: boolean) => {
+    if (p === "/admin/finance") return pathname === "/admin/finance" || pathname === "/admin/bills";
+    return exact ? pathname === p : pathname === p || pathname.startsWith(p + "/");
+  };
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
@@ -39,7 +42,7 @@ export function AdminSidebar({ email, onSignOut }: { email?: string; onSignOut: 
         <Section label="Finanças" items={finance} isActive={isActive} />
       </SidebarContent>
       <SidebarFooter className="border-t border-sidebar-border p-3">
-        <div className="mb-2 px-2 text-[10px] uppercase tracking-[0.2em] text-sidebar-foreground/40 group-data-[collapsible=icon]:hidden truncate">
+        <div className="mb-2 px-2 text-[10px] uppercase tracking-[0.22em] text-sidebar-foreground/40 font-semibold group-data-[collapsible=icon]:hidden truncate">
           {email}
         </div>
         <Button variant="ghost" onClick={onSignOut} className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent">
@@ -58,7 +61,7 @@ function Section({ label, items, isActive }: {
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="text-sidebar-foreground/45 text-[10px] uppercase tracking-[0.22em]">{label}</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-sidebar-foreground/45 text-[10px] uppercase tracking-[0.24em] font-semibold">{label}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((i) => (
@@ -66,7 +69,7 @@ function Section({ label, items, isActive }: {
               <SidebarMenuButton asChild isActive={isActive(i.to, i.exact)} tooltip={i.label}>
                 <Link to={i.to} className="flex items-center gap-3">
                   <i.icon className="h-4 w-4 shrink-0" />
-                  <span>{i.label}</span>
+                  <span className="text-sm font-medium">{i.label}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
