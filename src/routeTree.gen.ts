@@ -9,20 +9,52 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AgendarRouteImport } from './routes/agendar'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiPublicSeedAdminRouteImport } from './routes/api/public/seed-admin'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
 import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
 import { Route as AuthenticatedAdminFinanceRouteImport } from './routes/_authenticated/admin.finance'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminBillsRouteImport } from './routes/_authenticated/admin.bills'
 import { Route as AuthenticatedAdminAppointmentsRouteImport } from './routes/_authenticated/admin.appointments'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicosRoute = ServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendarRoute = AgendarRouteImport.update({
+  id: '/agendar',
+  path: '/agendar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -43,6 +75,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const ApiPublicSeedAdminRoute = ApiPublicSeedAdminRouteImport.update({
+  id: '/api/public/seed-admin',
+  path: '/api/public/seed-admin',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminServicesRoute =
   AuthenticatedAdminServicesRouteImport.update({
@@ -68,6 +105,11 @@ const AuthenticatedAdminClientsRoute =
     path: '/clients',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminBillsRoute = AuthenticatedAdminBillsRouteImport.update({
+  id: '/bills',
+  path: '/bills',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminAppointmentsRoute =
   AuthenticatedAdminAppointmentsRouteImport.update({
     id: '/appointments',
@@ -77,87 +119,170 @@ const AuthenticatedAdminAppointmentsRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
+  '/galeria': typeof GaleriaRoute
+  '/servicos': typeof ServicosRoute
+  '/sobre': typeof SobreRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
+  '/admin/bills': typeof AuthenticatedAdminBillsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
+  '/galeria': typeof GaleriaRoute
+  '/servicos': typeof ServicosRoute
+  '/sobre': typeof SobreRoute
   '/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
+  '/admin/bills': typeof AuthenticatedAdminBillsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
+  '/galeria': typeof GaleriaRoute
+  '/servicos': typeof ServicosRoute
+  '/sobre': typeof SobreRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/admin/appointments': typeof AuthenticatedAdminAppointmentsRoute
+  '/_authenticated/admin/bills': typeof AuthenticatedAdminBillsRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/finance': typeof AuthenticatedAdminFinanceRoute
   '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/seed-admin': typeof ApiPublicSeedAdminRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/agendar'
     | '/auth'
+    | '/contato'
+    | '/galeria'
+    | '/servicos'
+    | '/sobre'
     | '/admin'
     | '/admin/appointments'
+    | '/admin/bills'
     | '/admin/clients'
     | '/admin/finance'
     | '/admin/gallery'
     | '/admin/services'
+    | '/api/public/seed-admin'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agendar'
     | '/auth'
+    | '/contato'
+    | '/galeria'
+    | '/servicos'
+    | '/sobre'
     | '/admin/appointments'
+    | '/admin/bills'
     | '/admin/clients'
     | '/admin/finance'
     | '/admin/gallery'
     | '/admin/services'
+    | '/api/public/seed-admin'
     | '/admin'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/agendar'
     | '/auth'
+    | '/contato'
+    | '/galeria'
+    | '/servicos'
+    | '/sobre'
     | '/_authenticated/admin'
     | '/_authenticated/admin/appointments'
+    | '/_authenticated/admin/bills'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/finance'
     | '/_authenticated/admin/gallery'
     | '/_authenticated/admin/services'
+    | '/api/public/seed-admin'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AgendarRoute: typeof AgendarRoute
   AuthRoute: typeof AuthRoute
+  ContatoRoute: typeof ContatoRoute
+  GaleriaRoute: typeof GaleriaRoute
+  ServicosRoute: typeof ServicosRoute
+  SobreRoute: typeof SobreRoute
+  ApiPublicSeedAdminRoute: typeof ApiPublicSeedAdminRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos': {
+      id: '/servicos'
+      path: '/servicos'
+      fullPath: '/servicos'
+      preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agendar': {
+      id: '/agendar'
+      path: '/agendar'
+      fullPath: '/agendar'
+      preLoaderRoute: typeof AgendarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -188,6 +313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/api/public/seed-admin': {
+      id: '/api/public/seed-admin'
+      path: '/api/public/seed-admin'
+      fullPath: '/api/public/seed-admin'
+      preLoaderRoute: typeof ApiPublicSeedAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/services': {
       id: '/_authenticated/admin/services'
       path: '/services'
@@ -216,6 +348,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/bills': {
+      id: '/_authenticated/admin/bills'
+      path: '/bills'
+      fullPath: '/admin/bills'
+      preLoaderRoute: typeof AuthenticatedAdminBillsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/appointments': {
       id: '/_authenticated/admin/appointments'
       path: '/appointments'
@@ -228,6 +367,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAppointmentsRoute: typeof AuthenticatedAdminAppointmentsRoute
+  AuthenticatedAdminBillsRoute: typeof AuthenticatedAdminBillsRoute
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
   AuthenticatedAdminFinanceRoute: typeof AuthenticatedAdminFinanceRoute
   AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
@@ -237,6 +377,7 @@ interface AuthenticatedAdminRouteChildren {
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAppointmentsRoute: AuthenticatedAdminAppointmentsRoute,
+  AuthenticatedAdminBillsRoute: AuthenticatedAdminBillsRoute,
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
   AuthenticatedAdminFinanceRoute: AuthenticatedAdminFinanceRoute,
   AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
@@ -261,7 +402,13 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AgendarRoute: AgendarRoute,
   AuthRoute: AuthRoute,
+  ContatoRoute: ContatoRoute,
+  GaleriaRoute: GaleriaRoute,
+  ServicosRoute: ServicosRoute,
+  SobreRoute: SobreRoute,
+  ApiPublicSeedAdminRoute: ApiPublicSeedAdminRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
