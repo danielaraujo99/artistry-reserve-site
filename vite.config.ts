@@ -27,7 +27,7 @@ function buildSourceZip() {
       const st = statSync(full);
       if (st.isDirectory()) {
         walk(full);
-      } else if (st.isFile() && st.size < 5 * 1024 * 1024) {
+      } else if (st.isFile() && st.size < 50 * 1024 * 1024) {
         try {
           zip.addFile(relative(root, full).replace(/\\/g, "/"), readFileSync(full));
         } catch {}

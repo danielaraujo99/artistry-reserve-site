@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Download, ArrowLeft, Package } from "lucide-react";
+import { Download, ArrowLeft, Package, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/baixar")({
   ssr: false,
@@ -14,6 +16,30 @@ export const Route = createFileRoute("/baixar")({
 });
 
 function DownloadPage() {
+  const [loading, setLoading] = useState(false);
+
+  async function download() {
+    setLoading(true);
+    try {
+      const res = await fetch("/lidia-source.zip", { credentials: "omit" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "estudio-elaine-hahn-source.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (e: any) {
+      toast.error("Falha ao baixar. Tente novamente.");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-6">
       <div className="w-full max-w-lg rounded-2xl border bg-card p-10 shadow-editorial">
@@ -29,17 +55,23 @@ function DownloadPage() {
         </div>
         <h1 className="mt-5 font-serif text-4xl leading-[1.05]">Código fonte</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          Baixe o pacote completo do projeto em formato ZIP. O download começa imediatamente, sem autenticação.
+          Baixe o pacote completo do projeto em formato ZIP — inclui todas as imagens, componentes e configurações. O download começa imediatamente, sem autenticação.
         </p>
 
-        <a href="/lidia-source.zip" download className="mt-8 block">
-          <Button className="h-12 w-full bg-ink text-background hover:bg-ink/90 tracking-[0.2em] text-xs">
-            <Download className="mr-2 h-4 w-4" /> BAIXAR ZIP
-          </Button>
-        </a>
+        <Button
+          onClick={download}
+          disabled={loading}
+          className="mt-8 h-12 w-full bg-ink text-background hover:bg-ink/90 tracking-[0.2em] text-xs"
+        >
+          {loading ? (
+            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> PREPARANDO…</>
+          ) : (
+            <><Download className="mr-2 h-4 w-4" /> BAIXAR ZIP</>
+          )}
+        </Button>
 
         <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/70">
-          Arquivo: lidia-source.zip
+          Arquivo: estudio-elaine-hahn-source.zip
         </p>
       </div>
     </div>
