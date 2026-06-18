@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Heart, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
-import { professionalsQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -31,8 +29,26 @@ const VALUES = [
   { icon: Sparkles, title: "Resultado editorial", text: "Loiros e cores autorais com técnica de alta performance e acabamento de revista." },
 ];
 
+const TEAM = [
+  {
+    slug: "elaine",
+    name: "Elaine Hahn",
+    role: "Hair Stylist · Loiros & Coloração",
+    bio: "Fundadora do estúdio, com mais de uma década de carreira e formação internacional pela Pivot Point e L'Oréal Professionnel. Especialista em loiros sob medida e coloração autoral.",
+    specialties: ["Loiros", "Coloração", "Cortes femininos", "Finalização"],
+    img: "/main/Elaine.png",
+  },
+  {
+    slug: "veronica",
+    name: "Verônica Pereira",
+    role: "Especialista em Mechas & Colorimetria",
+    bio: "Hair colorist apaixonada por nuances e luminosidade. Especialista em mechas, balayage e correções de cor com técnica refinada e olhar editorial.",
+    specialties: ["Mechas", "Balayage", "Colorimetria", "Tratamentos"],
+    img: "/main/Veronica.png",
+  },
+];
+
 function AboutPage() {
-  const pros = useQuery(professionalsQuery);
 
   return (
     <div className="min-h-screen bg-background">
