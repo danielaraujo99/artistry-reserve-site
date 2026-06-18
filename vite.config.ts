@@ -53,12 +53,19 @@ function sourceZipPlugin() {
   } as const;
 }
 
+const vercelNitroConfig = {
+  preset: "vercel",
+  vercel: {
+    functions: {
+      runtime: "nodejs22.x",
+    },
+  },
+} as unknown as { preset: string };
+
 export default defineConfig({
   // Vercel precisa do Build Output API com função SSR; sem isso o deploy sobe
   // como estático incompleto e a raiz/rotas diretas retornam 404 NOT_FOUND.
-  nitro: {
-    preset: "vercel",
-  },
+  nitro: vercelNitroConfig,
   tanstackStart: {
     server: { entry: "server" },
   },
