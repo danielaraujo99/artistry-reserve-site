@@ -5,11 +5,58 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { join, relative, resolve } from "node:path";
+import AdmZip from "adm-zip";
+
+function buildSourceZip() {
+  const root = resolve(process.cwd());
+  const outDir = join(root, "public");
+  const outFile = join(outDir, "lidia-source.zip");
+  const IGNORE = new Set([
+    "node_modules", ".git", "dist", ".output", ".nitro", ".vinxi", ".cache",
+    ".turbo", "build", ".lovable", ".vercel", ".wrangler",
+  ]);
+  const IGNORE_FILES = new Set(["lidia-source.zip", ".DS_Store"]);
+
+  const zip = new AdmZip();
+  const walk = (dir: string) => {
+    for (const name of readdirSync(dir)) {
+      if (IGNORE.has(name) || IGNORE_FILES.has(name)) continue;
+      const full = join(dir, name);
+      const st = statSync(full);
+      if (st.isDirectory()) {
+        walk(full);
+      } else if (st.isFile() && st.size < 5 * 1024 * 1024) {
+        try {
+          zip.addFile(relative(root, full).replace(/\\/g, "/"), readFileSync(full));
+        } catch {}
+      }
+    }
+  };
+  try {
+    if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
+    walk(root);
+    zip.writeZip(outFile);
+  } catch (e) {
+    console.warn("[source-zip] failed:", e);
+  }
+}
+
+function sourceZipPlugin() {
+  return {
+    name: "lidia-source-zip",
+    apply: () => true,
+    configResolved() { buildSourceZip(); },
+    buildStart() { buildSourceZip(); },
+  } as const;
+}
 
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
+  },
+  vite: {
+    plugins: [sourceZipPlugin()],
   },
 });
