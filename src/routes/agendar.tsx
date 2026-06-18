@@ -31,7 +31,7 @@ function AgendarPage() {
               Reserve seu<br /><span className="italic text-gold-deep">momento</span>
             </h1>
             <p className="mt-6 text-foreground/70 text-lg max-w-xl">
-              Em apenas quatro passos, escolha o serviço, a profissional e o horário ideal para a sua experiência no estúdio.
+              Em cinco passos simples, escolha o serviço, a profissional, a data e o horário ideal para a sua experiência no estúdio.
             </p>
           </div>
           <BookingFlow />
