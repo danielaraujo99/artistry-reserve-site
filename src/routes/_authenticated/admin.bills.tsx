@@ -16,6 +16,7 @@ import { ptBR } from "date-fns/locale";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
+import { FinanceTabs } from "@/components/admin/FinanceTabs";
 
 export const Route = createFileRoute("/_authenticated/admin/bills")({
   component: BillsPage,
@@ -81,21 +82,23 @@ function BillsPage() {
   }
 
   return (
-    <div className="p-6 md:p-10 space-y-8">
+    <div className="p-6 md:p-10 space-y-6">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:flex sm:flex-wrap sm:justify-between">
         <div className="min-w-0">
-          <h1 className="font-serif text-4xl">Contas a pagar</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-[-0.02em]">Financeiro</h1>
           <p className="text-sm text-muted-foreground">Controle de despesas com vencimento.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-ink text-background hover:bg-ink/90 tracking-[0.18em] text-xs h-11 px-5">
+            <Button className="bg-ink text-background hover:bg-ink/90 tracking-[0.18em] text-[11px] font-semibold h-11 px-5 rounded-md">
               <Plus className="h-4 w-4 mr-2" /> NOVA CONTA
             </Button>
           </DialogTrigger>
           <BillFormDialog onSaved={() => { setOpen(false); qc.invalidateQueries({ queryKey: ["bills"] }); }} />
         </Dialog>
       </div>
+
+      <FinanceTabs />
 
       <div className="grid gap-4 md:grid-cols-4">
         <Kpi label="A pagar (pendente)" value={`R$ ${totals.pending.toFixed(2)}`} icon={CalendarClock} />

@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { Plus, Trash2, TrendingUp, TrendingDown, Wallet } from "lucide-react";
 import { format, parseISO, startOfMonth } from "date-fns";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { FinanceTabs } from "@/components/admin/FinanceTabs";
 
 export const Route = createFileRoute("/_authenticated/admin/finance")({
   component: FinancePage,
@@ -68,7 +69,7 @@ function FinancePage() {
     <div className="p-6 md:p-10">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-serif text-4xl">Financeiro</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-[-0.02em]">Financeiro</h1>
           <p className="text-sm text-muted-foreground">Receitas, despesas e contas a pagar</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
@@ -109,6 +110,8 @@ function FinancePage() {
           </DialogContent>
         </Dialog>
       </div>
+
+      <div className="mb-6"><FinanceTabs /></div>
 
       <div className="grid gap-4 md:grid-cols-4">
         <StatCard label="Receita" value={`R$ ${totals.inc.toFixed(2)}`} icon={TrendingUp} color="text-emerald-600" />
