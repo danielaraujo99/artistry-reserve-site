@@ -14,16 +14,330 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appt_date: string
+          appt_time: string
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          price: number | null
+          professional_id: string | null
+          professional_name: string
+          service_id: string | null
+          service_name: string
+          status: Database["public"]["Enums"]["appt_status"]
+          updated_at: string
+        }
+        Insert: {
+          appt_date: string
+          appt_time: string
+          client_name: string
+          client_phone?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          price?: number | null
+          professional_id?: string | null
+          professional_name: string
+          service_id?: string | null
+          service_name: string
+          status?: Database["public"]["Enums"]["appt_status"]
+          updated_at?: string
+        }
+        Update: {
+          appt_date?: string
+          appt_time?: string
+          client_name?: string
+          client_phone?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          price?: number | null
+          professional_id?: string | null
+          professional_name?: string
+          service_id?: string | null
+          service_name?: string
+          status?: Database["public"]["Enums"]["appt_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_professional_id_fkey"
+            columns: ["professional_id"]
+            isOneToOne: false
+            referencedRelation: "professionals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blocked_slots: {
+        Row: {
+          block_date: string
+          block_time: string | null
+          created_at: string
+          id: string
+          professional_id: string | null
+          reason: string | null
+        }
+        Insert: {
+          block_date: string
+          block_time?: string | null
+          created_at?: string
+          id?: string
+          professional_id?: string | null
+          reason?: string | null
+        }
+        Update: {
+          block_date?: string
+          block_time?: string | null
+          created_at?: string
+          id?: string
+          professional_id?: string | null
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blocked_slots_professional_id_fkey"
+            columns: ["professional_id"]
+            isOneToOne: false
+            referencedRelation: "professionals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clients: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gallery_items: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+          title: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          image_url: string
+          sort_order?: number
+          title?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          image_url?: string
+          sort_order?: number
+          title?: string | null
+        }
+        Relationships: []
+      }
+      professionals: {
+        Row: {
+          active: boolean
+          bio: string | null
+          created_at: string
+          id: string
+          name: string
+          photo_url: string | null
+          role_title: string | null
+          sort_order: number
+          specialties: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          role_title?: string | null
+          sort_order?: number
+          specialties?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          role_title?: string | null
+          sort_order?: number
+          specialties?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          category: string | null
+          created_at: string
+          description: string | null
+          duration_min: number
+          id: string
+          name: string
+          price: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          duration_min?: number
+          id?: string
+          name: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          duration_min?: number
+          id?: string
+          name?: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          appointment_id: string | null
+          category: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          paid: boolean
+          tx_date: string
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          appointment_id?: string | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          paid?: boolean
+          tx_date?: string
+          type: Database["public"]["Enums"]["tx_type"]
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          appointment_id?: string | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          paid?: boolean
+          tx_date?: string
+          type?: Database["public"]["Enums"]["tx_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "staff"
+      appt_status: "pending" | "confirmed" | "done" | "cancelled"
+      tx_type: "income" | "expense"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +464,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "staff"],
+      appt_status: ["pending", "confirmed", "done", "cancelled"],
+      tx_type: ["income", "expense"],
+    },
   },
 } as const
