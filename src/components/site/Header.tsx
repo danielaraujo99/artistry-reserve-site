@@ -43,9 +43,8 @@ export function Header({ variant = "auto" }: { variant?: "auto" | "dark" | "ligh
     <>
       <header className={cn("fixed top-0 z-40 w-full transition-all duration-300", headerCls)}>
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 md:px-8 md:py-4 lg:grid-cols-[auto_1fr_auto]">
-          <Link to="/" className="flex min-w-0 items-center gap-3">
-            <Logo variant={onDark && !scrolled ? "light" : "default"} className="h-10 w-auto shrink-0 md:h-11" />
-            <Wordmark variant={onDark && !scrolled ? "light" : "default"} className="hidden sm:flex" />
+          <Link to="/" className="flex min-w-0 items-center">
+            <Logo variant={onDark && !scrolled ? "light" : "default"} className="h-11 w-auto shrink-0 md:h-12" />
           </Link>
 
           <nav className="hidden lg:flex items-center justify-center gap-9">
