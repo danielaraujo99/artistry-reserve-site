@@ -106,19 +106,33 @@
   --shadow-editorial: 0 30px 80px -36px oklch(0.10 0.006 60 / 0.38), 0 8px 22px -14px oklch(0.10 0.006 60 / 0.10);
 }
 
-/* Admin panel: blue accent (scoped to admin only) */
+/* Admin panel: blue accent applied to MAIN content only.
+   Sidebar tokens stay on the original dark/charcoal palette so the menu remains black. */
 .admin-theme {
   --admin-accent: oklch(0.55 0.13 250);
   --admin-accent-soft: oklch(0.62 0.12 250);
-  --sidebar: oklch(0.16 0.02 255);
-  --sidebar-foreground: oklch(0.92 0.005 255);
-  --sidebar-primary: oklch(0.62 0.12 250);
-  --sidebar-primary-foreground: oklch(0.14 0.02 255);
-  --sidebar-accent: oklch(0.22 0.02 255);
-  --sidebar-accent-foreground: oklch(0.96 0.005 255);
-  --sidebar-border: oklch(0.24 0.02 255);
-  --sidebar-ring: oklch(0.62 0.12 250);
+
+  /* Main content: replace brown/gold accents with blue */
+  --gold: oklch(0.62 0.12 250);
+  --gold-soft: oklch(0.78 0.07 250);
+  --gold-deep: oklch(0.50 0.13 250);
+  --accent: oklch(0.94 0.025 250);
+  --accent-foreground: oklch(0.20 0.04 255);
   --ring: oklch(0.55 0.13 250);
+  --chart-1: oklch(0.55 0.13 250);
+  --chart-3: oklch(0.72 0.10 250);
+  --chart-5: oklch(0.45 0.13 250);
+  --gradient-gold: linear-gradient(135deg, oklch(0.70 0.10 250), oklch(0.48 0.14 250));
+
+  /* Sidebar: keep ORIGINAL dark/black look — do not tint blue */
+  --sidebar: oklch(0.12 0.006 60);
+  --sidebar-foreground: oklch(0.92 0.005 80);
+  --sidebar-primary: oklch(0.70 0.075 75);
+  --sidebar-primary-foreground: oklch(0.12 0.006 60);
+  --sidebar-accent: oklch(0.18 0.008 60);
+  --sidebar-accent-foreground: oklch(0.96 0.005 80);
+  --sidebar-border: oklch(0.20 0.008 60);
+  --sidebar-ring: oklch(0.70 0.075 75);
 }
 @utility bg-admin-accent { background: var(--admin-accent); }
 @utility text-admin-accent { color: var(--admin-accent); }

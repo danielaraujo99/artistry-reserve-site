@@ -42,7 +42,7 @@ function AuthPage() {
   }
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-[1.1fr_1fr]">
+    <div className="admin-theme grid min-h-screen lg:grid-cols-[1.1fr_1fr]">
       {/* Left — editorial image */}
       <div className="relative hidden overflow-hidden bg-ink lg:block">
         <img
