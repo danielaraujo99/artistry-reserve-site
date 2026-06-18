@@ -32,7 +32,7 @@ function DownloadPage() {
         </p>
 
         <a
-          href="/lidia-source.zip"
+          href="/api/public/baixar"
           download="estudio-elaine-hahn-source.zip"
           target="_self"
           rel="noopener"
