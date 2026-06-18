@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "bun install",
+  "buildCommand": "bun run build",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -23,8 +26,5 @@
         { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
-  ],
-  "rewrites": [
-    { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/" }
   ]
 }

@@ -54,6 +54,11 @@ function sourceZipPlugin() {
 }
 
 export default defineConfig({
+  // Vercel precisa do Build Output API com função SSR; sem isso o deploy sobe
+  // como estático incompleto e a raiz/rotas diretas retornam 404 NOT_FOUND.
+  nitro: {
+    preset: "vercel",
+  },
   tanstackStart: {
     server: { entry: "server" },
   },
